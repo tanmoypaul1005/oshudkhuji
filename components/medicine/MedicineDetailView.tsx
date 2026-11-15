@@ -34,19 +34,16 @@ export function MedicineHeader({ lang, t, m }: Props) {
     <div className="grid gap-4 md:grid-cols-[1fr_auto]">
       <div className={cn("rounded-2xl border border-border bg-card p-6", m.image && "sm:flex sm:items-start sm:gap-6")}>
         {m.image && (
-          <figure className="mb-4 shrink-0 sm:order-last sm:mb-0">
+          <figure className="mb-4 shrink-0 sm:mb-0">
             <Image
               src={m.image.url}
               alt={[m.brand, m.strength, m.dosageForm].filter(Boolean).join(" ")}
               width={m.image.width}
               height={m.image.height}
-              sizes="(min-width: 640px) 176px, 60vw"
+              sizes="(min-width: 640px) 320px, 85vw"
               priority
-              className="mx-auto aspect-square w-3/5 rounded-xl border border-border bg-white object-contain sm:w-44"
+              className="mx-auto aspect-square w-[85%] rounded-xl border border-border bg-white object-contain sm:w-80"
             />
-            {m.image.source && (
-              <figcaption className="mt-1 text-center text-xs text-muted">{fill(t.imageCredit, { source: m.image.source })}</figcaption>
-            )}
           </figure>
         )}
         <div className="min-w-0 flex-1">
