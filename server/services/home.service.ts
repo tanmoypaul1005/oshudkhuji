@@ -40,7 +40,7 @@ export type HomeData = {
 
 export async function getHomeData(): Promise<HomeData> {
   "use cache";
-  cacheLife("hours");
+  cacheLife("max");
   cacheTag("medicines", "home");
   await connectDB();
 

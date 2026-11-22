@@ -19,6 +19,7 @@ export function ViewToggle({ lang, t, query }: Omit<Props, "data">) {
     <nav aria-label={t.viewAria} className="inline-flex rounded-xl border border-border bg-card p-1 text-sm">
       {MEDICINE_VIEWS.map((v) => (
         <Link
+          prefetch={false}
           key={v}
           href={listHref(lang, query, { view: v, page: 1 })}
           aria-current={query.view === v ? "page" : undefined}
@@ -61,7 +62,7 @@ export function MedicineTable({ lang, t, query, data }: Props) {
               {rows.map((m) => (
                 <tr key={m.id} className="hover:bg-brand-soft/30 transition">
                   <td className="px-4 py-3">
-                    <Link href={href(lang, `/medicine/${m.slug}`)} className="font-semibold hover:text-brand">
+                    <Link prefetch={false} href={href(lang, `/medicine/${m.slug}`)} className="font-semibold hover:text-brand">
                       {m.brand}
                     </Link>
                     {m.type === "herbal" && (
@@ -117,7 +118,7 @@ export function PageLink({ href: to, disabled, children }: { href: string; disab
       {children}
     </span>
   ) : (
-    <Link href={to} className={cn(cls, "hover:border-brand transition")}>
+    <Link prefetch={false} href={to} className={cn(cls, "hover:border-brand transition")}>
       {children}
     </Link>
   );

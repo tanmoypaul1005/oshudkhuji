@@ -25,6 +25,9 @@ const INFO_SECTIONS: GenericSection[] = [
   "storage",
 ];
 
+/** Cloudinary already resizes/compresses; skips Vercel Image Optimization (free quota). */
+const cdnImage = (url: string) => url.replace("/upload/", "/upload/f_auto,q_auto,w_700/");
+
 const money = (lang: Locale) => (n: number) => formatPrice(lang, n);
 
 export function MedicineHeader({ lang, t, m }: Props) {
@@ -36,12 +39,13 @@ export function MedicineHeader({ lang, t, m }: Props) {
         {m.image && (
           <figure className="mb-4 shrink-0 sm:mb-0">
             <Image
-              src={m.image.url}
+              src={cdnImage(m.image.url)}
               alt={[m.brand, m.strength, m.dosageForm].filter(Boolean).join(" ")}
               width={m.image.width}
               height={m.image.height}
               sizes="(min-width: 640px) 320px, 85vw"
               priority
+              unoptimized
               className="mx-auto aspect-square w-[85%] rounded-xl border border-border bg-white object-contain sm:w-80"
             />
           </figure>

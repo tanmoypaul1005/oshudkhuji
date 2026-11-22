@@ -75,7 +75,7 @@ export function BrandList({ lang, t, query, data }: { lang: Locale; t: T; query:
             b.variants.length === 1 ? (
               // Single strength/form → link straight to its page
               <li key={b.key}>
-                <Link href={href(lang, `/medicine/${b.variants[0].slug}`)} className="flex items-center gap-3 px-4 py-3 hover:bg-brand-soft/30 transition">
+                <Link prefetch={false} href={href(lang, `/medicine/${b.variants[0].slug}`)} className="flex items-center gap-3 px-4 py-3 hover:bg-brand-soft/30 transition">
                   <BrandHead lang={lang} t={t} b={b} />
                   <ChevronRight className="size-4 shrink-0 text-muted" aria-hidden />
                 </Link>
@@ -91,6 +91,7 @@ export function BrandList({ lang, t, query, data }: { lang: Locale; t: T; query:
                     {b.variants.map((v) => (
                       <li key={v.slug}>
                         <Link
+                          prefetch={false}
                           href={href(lang, `/medicine/${v.slug}`)}
                           className="flex items-center justify-between gap-4 py-2.5 pr-11 pl-8 text-sm hover:bg-brand-soft/30 transition"
                         >

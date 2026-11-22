@@ -1,6 +1,5 @@
 import "server-only";
 import type { PipelineStage, QueryFilter } from "mongoose";
-import { cacheLife, cacheTag } from "next/cache";
 import { connectDB } from "@/lib/db";
 import { bnToLatin, hasBangla } from "@/lib/search/bnTranslit";
 import { Medicine, MEDICINE_SEARCH_INDEX, SearchLog, type MedicineDoc } from "@/models";
@@ -153,9 +152,6 @@ export async function autocomplete(q: string): Promise<MedicineHit[]> {
 }
 
 async function cachedAutocomplete(key: string): Promise<MedicineHit[]> {
-  "use cache";
-  cacheLife("hours");
-  cacheTag("medicines", "search");
   await connectDB();
   return (await run(parseQuery(key), 0, AUTOCOMPLETE_LIMIT, false)).hits;
 }
@@ -168,9 +164,6 @@ export async function searchMedicines(q: string, page = 1): Promise<SearchResult
 }
 
 async function cachedSearch(key: string, page: number): Promise<SearchResult> {
-  "use cache";
-  cacheLife("hours");
-  cacheTag("medicines", "search");
   await connectDB();
   const r = await run(parseQuery(key), (page - 1) * SEARCH_PAGE_SIZE, SEARCH_PAGE_SIZE);
   return { hits: r.hits, total: r.total, engine: r.engine, page, pages: Math.max(1, Math.ceil(r.total / SEARCH_PAGE_SIZE)) };
