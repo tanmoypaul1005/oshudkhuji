@@ -49,7 +49,7 @@ export type BrandList = { rows: BrandRow[]; total: number; page: number; pages: 
  */
 export async function listBrands(query: MedicineListQuery): Promise<BrandList> {
   "use cache";
-  cacheLife("hours");
+  cacheLife("max");
   cacheTag("medicines");
   const { q, type, sort, page } = query;
   await connectDB();

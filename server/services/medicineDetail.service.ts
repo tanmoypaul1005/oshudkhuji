@@ -56,7 +56,7 @@ const priceLabelOf = (packs: { label: string; price: number }[] | undefined | nu
 /** Cached per slug (hours). Revalidate after admin edits with revalidateTag(`medicine:${slug}`). */
 export async function getMedicineDetail(slug: string): Promise<MedicineDetail | null> {
   "use cache";
-  cacheLife("hours");
+  cacheLife("max");
   cacheTag("medicines", `medicine:${slug}`);
 
   await connectDB();

@@ -36,7 +36,7 @@ const BRANDS_PER_GENERIC = 5;
 /** All conditions for the list page, home chips and search matching. */
 export async function listConditions(): Promise<ConditionCard[]> {
   "use cache";
-  cacheLife("hours");
+  cacheLife("max");
   cacheTag("conditions");
   await connectDB();
   const docs = await Condition.find()
@@ -69,7 +69,7 @@ export async function findConditions(q: string): Promise<ConditionCard[]> {
 
 export async function getCondition(slug: string): Promise<ConditionDetail | null> {
   "use cache";
-  cacheLife("hours");
+  cacheLife("max");
   cacheTag("conditions", `condition:${slug}`);
   await connectDB();
   const c = await Condition.findOne({ slug }).lean();
